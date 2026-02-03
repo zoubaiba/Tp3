@@ -19,10 +19,12 @@ function hide(element) {
 element.style.display = "none";
 }
 function new_game(game_selection) { // fonction qui montre l’´ecran de s´election du mode de jeu
-    if (game_selection == "#game2") {
+    console.log(game_selection);
+
+    if (game_selection == "#game1") {
         hide(game2);
         show(game1);
-    } else if (game_selection == "#game1") {
+    } else if (game_selection == "#game2") {
         hide(game1);
         show(game2);
     }
@@ -30,11 +32,12 @@ function new_game(game_selection) { // fonction qui montre l’´ecran de s´ele
 
 function start_player_guess_game() {
     new_game("#game1");
+    console.log("start_player_guess_game");
     let computer_number = Math.random() * 100;
-    hide(game2);
-    hide(game_selection);
-    hide(restart_button1);
-    let number = document.getElementById("player_input").value.parseInt();
+
+    let number = document.getElementById("player_input").value;
+    number = parseInt(number);
+    console.log(number);
 
     if (number == computer_number) {
         show(message1);
@@ -53,5 +56,5 @@ function start_player_guess_game() {
 
 document.querySelector("#restart_button1").addEventListener("click", new_game("#game1"));
 document.querySelector("#try_button").addEventListener("click", start_player_guess_game);
-document.querySelector("#start_game1").addEventListener("click", new_game("#game1"));
+document.querySelector("#start_game1").addEventListener("click", start_player_guess_game);
 document.querySelector("#start_game2").addEventListener("click", new_game("#game2"));
