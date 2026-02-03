@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Le nombre mystere</h1>
+
+        <div id="game_selection">
+            <p>Choisissez le mode de jeu :</p>
+            <button id="start_game1">Je devine</button>
+            <button id="start_game2">L'ordinateur devine</button>
+        </div>
+
+        <div id="game1" class="hidden">
+            <h2>Mode : Le joueur devine</h2>
+            
+            <input type="text" id="player_input" placeholder="Entrez un nombre">
+            <button id="try_button">Tester</button>
+            
+            <div id="message1"></div>
+            
+            <button id="restart_button1" class="hidden">Recommencer</button>
+        </div>
+
+        <div id="game2" class="hidden">
+            <h2>Mode : L'ordinateur devine</h2>
+            
+            <div id="message2">L'ordinateur réfléchit...</div>
+            
+                <button id="smaller_button">C'est plus petit</button>
+                <button id="found_button">C'est trouvé !</button>
+                <button id="bigger_button">C'est plus grand</button>
+
+            <button id="restart_button2" class="hidden">Recommencer</button>
+        </div>
+    </div>
+</body>
+</html>
