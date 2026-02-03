@@ -2,6 +2,7 @@
 
 // renvoyer l’element HTML d’identifiant #game_selection :
 let message1 = document.querySelector("#message1");
+let message2 = document.querySelector("#message2");
 let game_selection = document.querySelector("#game_selection");
 let game1 = document.querySelector("#game1");
 let game2 = document.querySelector("#game2");
@@ -31,14 +32,40 @@ hide(game2);
 
 function start_player_guess_game() {
     new_game("#game1");
-    computer_number = Math.random() * 100;
+    computer_number = Math.floor(Math.random() * 100) + 1; // Nombre entier entre 1 et 100
     hide(game_selection);
     show(game1);
     hide(restart_button1);
 
     player_input.value = "";
-    message1.innerText = "";
+    message1.innerText = "" ;
 }
+function start_computer_guess_game() {
+    new_game("#game2");
+    computer_number = Math.floor(Math.random() * 100) + 1; // Nombre entier entre 1 et 100
+    hide(game_selection);
+    show(game2);
+    hide(restart_button2);
+    message1.innerText = "le nombre choisit par l ordinateur est " , computer_number;
+}
+function game2_starter(){
+    min = 0;
+    max = 100;
+
+    // Gestion de l'affichage (comme pour le jeu 1)
+    hide(game_selection);
+    show(game2);
+    hide(restart_button2); // On cache le bouton recommencer au début
+
+    // On s'assure que les boutons de jeu sont visibles
+    show(smaller_button);
+    show(bigger_button);
+    show(found_button);
+
+    // L'ordinateur fait sa première proposition
+    make_proposition();
+}
+
 
 function game1_starter(){
     
@@ -63,7 +90,10 @@ function game1_starter(){
 }
 try_button.addEventListener("click", game1_starter);
 
+document.querySelector("#smaller_button").addEventListener("click", game2_starter);
+document.querySelector("#found_button").addEventListener("click", game2_starter);
+document.querySelector("#bigger_button").addEventListener("click", game2_starter);
 
 document.querySelector("#restart_button1").addEventListener("click", new_game);
 document.querySelector("#start_game1").addEventListener("click", start_player_guess_game);
-document.querySelector("#start_game2").addEventListener("click", new_game);
+document.querySelector("#start_game2").addEventListener("click", start_computer_guess_game);
