@@ -23,7 +23,8 @@ function show(element) {
 function hide(element) {
 element.style.display = "none";
 }
-function new_game() { // fonction qui montre l’´ecran de s´election du mode de jeu
+function new_game() {
+ // fonction qui montre l’´ecran de s´election du mode de jeu
 show(game_selection);
 hide(game1);
 hide(game2);
@@ -31,9 +32,12 @@ hide(game2);
 
 function start_player_guess_game() {
     new_game("#game1");
-    computer_number = Math.random() * 100;
+    computer_number = Math.floor(Math.random() * 100);
+
+    // Gestion de l'affichage
     hide(game_selection);
     show(game1);
+    // On cache le bouton recommencer au début
     hide(restart_button1);
 
     // On vide l'input pour le prochain essai
@@ -41,29 +45,39 @@ function start_player_guess_game() {
     message1.innerText = "";
 }
 function start_computer_guess_game() {
-    new_game("#game2");
-    computer_number = Math.floor(Math.random() * 100) + 1; // Nombre entier entre 1 et 100
-    hide(game_selection);
-    show(game2);
-    hide(restart_button2);
-    message1.innerText = "le nombre choisit par l ordinateur est " , computer_number;
-}
-function game2_starter(){
+    new_game("#game2");    
+    // on initialise min et max
     min = 0;
     max = 100;
+    proposition = Math.floor((min + max) / 2); 
 
-    // Gestion de l'affichage (comme pour le jeu 1)
+    // Gestion de l'affichage
     hide(game_selection);
-    show(game2);
-    hide(restart_button2); // On cache le bouton recommencer au début
+    show(game2);    
+    // On cache le bouton recommencer au début
+    hide(restart_button2);  
+    message1.innerText = "Est ce que c'est " + proposition + "?";
+}
+function game2_starter(event){
+   
+    const idbouton = event.target.id;
+    if (idDuBouton === "smaller_button") {
+        console.log("plus petit");
+        max = proposition - 1;
+        
+    } 
+    else if (idDuBouton === "bigger_button") {
+        console.log("plus grand");
+        min = proposition + 1;
+    }
+    else if (idDuBouton === "found_button") {
+        message2.innerText = "L'ordinateur a gagné !";
+        show(restart_button2);
+        return; 
+    }
+    proposition = Math.floor((min + max) / 2);
+    message2.innerText = "Est-ce que c'est " + proposition + " ?";
 
-    // On s'assure que les boutons de jeu sont visibles
-    show(smaller_button);
-    show(bigger_button);
-    show(found_button);
-
-    // L'ordinateur fait sa première proposition
-    make_proposition();
 }
 
 
