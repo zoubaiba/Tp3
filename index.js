@@ -1,23 +1,13 @@
-       "use strict";
-       //selection des elements HTML
-       const game_selection = document.querySelector('#game_selection');
-        
-        // Éléments Game 1
-        const game1 = document.querySelector('#game1');
-        const player_input = document.querySelector('#player_input');
-        const try_button = document.querySelector('#try_button');
-        const message1 = document.querySelector('#message1');
-        const restart_button1 = document.querySelector('#restart_button1');
-        const start_game1_btn = document.querySelector('#start_game1');
+"use strict";
 
-        // Éléments Game 2
-        const game2 = document.querySelector('#game2');
-        const message2 = document.querySelector('#message2');
-        const smaller_button = document.querySelector('#smaller_button');
-        const bigger_button = document.querySelector('#bigger_button');
-        const found_button = document.querySelector('#found_button');
-        const restart_button2 = document.querySelector('#restart_button2');
-        const start_game2_btn = document.querySelector('#start_game2');
+// renvoyer l’element HTML d’identifiant #game_selection :
+let message1 = document.querySelector("#message1");
+let game_selection = document.querySelector("#game_selection");
+let game1 = document.querySelector("#game1");
+let game2 = document.querySelector("#game2");
+let restart_button1 = document.querySelector("#restart_button1");
+let restart_button2 = document.querySelector("#restart_button2");
+let try_button = document.querySelector("#try_button");
 
 let computer_number; // Pour le jeu 1 
 let min, max, proposition; // Pour le jeu 2 
@@ -41,17 +31,41 @@ hide(game2);
 
 function start_player_guess_game() {
     new_game("#game1");
-    // on genere un entier pour l'ordi
-    computer_number = Math.floor(Math.random() * 100);
+    computer_number = Math.random() * 100;
     hide(game_selection);
     show(game1);
     hide(restart_button1);
 
     // On vide l'input pour le prochain essai
     player_input.value = "";
-    // On garde le focus sur l'input pour taper vite 
     message1.innerText = "";
 }
+function start_computer_guess_game() {
+    new_game("#game2");
+    computer_number = Math.floor(Math.random() * 100) + 1; // Nombre entier entre 1 et 100
+    hide(game_selection);
+    show(game2);
+    hide(restart_button2);
+    message1.innerText = "le nombre choisit par l ordinateur est " , computer_number;
+}
+function game2_starter(){
+    min = 0;
+    max = 100;
+
+    // Gestion de l'affichage (comme pour le jeu 1)
+    hide(game_selection);
+    show(game2);
+    hide(restart_button2); // On cache le bouton recommencer au début
+
+    // On s'assure que les boutons de jeu sont visibles
+    show(smaller_button);
+    show(bigger_button);
+    show(found_button);
+
+    // L'ordinateur fait sa première proposition
+    make_proposition();
+}
+
 
 function game1_starter(){
     
@@ -84,7 +98,10 @@ function game1_starter(){
 //la 1er game se lance en cliquant sur je devine
 try_button.addEventListener("click", game1_starter);
 
+document.querySelector("#smaller_button").addEventListener("click", game2_starter);
+document.querySelector("#found_button").addEventListener("click", game2_starter);
+document.querySelector("#bigger_button").addEventListener("click", game2_starter);
 
 document.querySelector("#restart_button1").addEventListener("click", new_game);
 document.querySelector("#start_game1").addEventListener("click", start_player_guess_game);
-document.querySelector("#start_game2").addEventListener("click", new_game);
+document.querySelector("#start_game2").addEventListener("click", start_computer_guess_game);
