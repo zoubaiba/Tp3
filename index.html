@@ -3,11 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <style>
+        /* style pour le body pour centre le contenu et mettre les button en forme */
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        input {
+            padding: 10px;
+            margin: 5px;
+        }
+        #message1, #message2 {
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Le nombre mystere</h1>
+        <h1>Le nombre mystère</h1>
 
         <div id="game_selection">
             <p>Choisissez le mode de jeu :</p>
@@ -15,7 +41,8 @@
             <button id="start_game2">L'ordinateur devine</button>
         </div>
 
-        <div id="game1" class="hidden">
+        <!-- game 1 et game 2 sont caches par defaut apres l utilisatuer va choisir le mode de jeu -->
+        <div id="game1" style="display: none">
             <h2>Mode : Le joueur devine</h2>
             
             <input type="text" id="player_input" placeholder="Entrez un nombre">
@@ -23,19 +50,20 @@
             
             <div id="message1"></div>
             
-            <button id="restart_button1" class="hidden">Recommencer</button>
+            <button id="restart_button1" style="display: none">Recommencer</button>
         </div>
 
-        <div id="game2" class="hidden">
+        <div id="game2" style="display: none">
             <h2>Mode : L'ordinateur devine</h2>
             
             <div id="message2">L'ordinateur réfléchit...</div>
             
-                <button id="smaller_button">C'est plus petit</button>
-                <button id="found_button">C'est trouvé !</button>
-                <button id="bigger_button">C'est plus grand</button>
+            <button id="smaller_button">C'est plus petit</button>
+            <button id="found_button">C'est trouvé !</button>
+            <button id="bigger_button">C'est plus grand</button>
 
-            <button id="restart_button2" class="hidden">Recommencer</button>
+            <br><br>
+            <button id="restart_button2" style="display: none">Recommencer</button>
         </div>
     </div>
     <script src="index.js"></script>

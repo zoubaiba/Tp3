@@ -1,7 +1,8 @@
 "use strict";
-
+document.addEventListener("DOMContentLoaded", function() {
 // renvoyer l’element HTML d’identifiant #game_selection :
 let message1 = document.querySelector("#message1");
+let message2 = document.querySelector("#message2");
 let game_selection = document.querySelector("#game_selection");
 let game1 = document.querySelector("#game1");
 let game2 = document.querySelector("#game2");
@@ -13,7 +14,7 @@ let computer_number; // Pour le jeu 1
 let min, max, proposition; // Pour le jeu 2 
 
 // afficher un texte dans l’´element message1
-message1.innerText = "un petit texte";
+message1.innerText = "";
 // afficher la valeur de l’input de type texte input_element
 
 
@@ -21,7 +22,7 @@ function show(element) {
     element.style.display = "";
 }
 function hide(element) {
-element.style.display = "none";
+    element.style.display = "none";
 }
 function new_game() {
  // fonction qui montre l’´ecran de s´election du mode de jeu
@@ -50,31 +51,38 @@ function start_computer_guess_game() {
     min = 0;
     max = 100;
     proposition = Math.floor((min + max) / 2); 
+    console.log("proposition", proposition);
+    console.log("min", min);
+    console.log("max", max);
 
     // Gestion de l'affichage
     hide(game_selection);
     show(game2);    
     // On cache le bouton recommencer au début
     hide(restart_button2);  
-    message1.innerText = "Est ce que c'est " + proposition + "?";
+    message2.innerText = "Est-ce que c'est " + proposition + " ?";
 }
 function game2_starter(event){
    
+    // on recupere l id du bouton clicke
     const idbouton = event.target.id;
-    if (idDuBouton === "smaller_button") {
+    // on verifie si le button clicke est le bouton plus petit
+    if (idbouton === "smaller_button") {
         console.log("plus petit");
         max = proposition - 1;
-        
-    } 
-    else if (idDuBouton === "bigger_button") {
+    }
+    // on verifie si le bouton clicke est le bouton plus grand
+    else if (idbouton === "bigger_button") {
         console.log("plus grand");
         min = proposition + 1;
     }
-    else if (idDuBouton === "found_button") {
+    // on verifie si le bouton clicke est le bouton trouve
+    else if (idbouton === "found_button") {
         message2.innerText = "L'ordinateur a gagné !";
         show(restart_button2);
         return; 
     }
+    // on calcule la nouvelle proposition
     proposition = Math.floor((min + max) / 2);
     message2.innerText = "Est-ce que c'est " + proposition + " ?";
 
@@ -117,5 +125,7 @@ document.querySelector("#found_button").addEventListener("click", game2_starter)
 document.querySelector("#bigger_button").addEventListener("click", game2_starter);
 
 document.querySelector("#restart_button1").addEventListener("click", new_game);
+document.querySelector("#restart_button2").addEventListener("click", new_game);
 document.querySelector("#start_game1").addEventListener("click", start_player_guess_game);
 document.querySelector("#start_game2").addEventListener("click", start_computer_guess_game);
+});
